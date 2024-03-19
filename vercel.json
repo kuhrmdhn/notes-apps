@@ -1,0 +1,12 @@
+{
+    "rewrites": [
+        {
+            "source": "/notes",
+            "destination": "/notes/index.html"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
+}
