@@ -4,6 +4,7 @@ import { useNotesStore } from "../utils/zustand/NotesStore"
 import { useSearchStore } from "../utils/zustand/SearchStore"
 
 function ArchiveList() {
+    document.title = "Archive"
     const archive = useNotesStore(state => state.archive)
     const search = useSearchStore(state => state.search)
     let archiveDisplay = archive

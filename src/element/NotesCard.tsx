@@ -1,9 +1,11 @@
 import { IconButton, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
 import { NotesType } from "../utils/type/NotesType"
-import { CalendarIcon, ChevronDownIcon, DeleteIcon } from "@chakra-ui/icons"
+import { CalendarIcon, ChevronDownIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons"
 import { useNotesStore } from "../utils/zustand/NotesStore"
+import { useFormStore } from "../utils/zustand/FormStore"
 
 function NotesCard({ id, date, title, description }: NotesType) {
+    const handleEditData = useFormStore(state => state.handleEditData)
     const [notes, setNotes, archive, setArchive, fetchLocalStorage] = useNotesStore(state => [
         state.notes,
         state.setNotes,
@@ -39,6 +41,13 @@ function NotesCard({ id, date, title, description }: NotesType) {
             icon: <DeleteIcon />,
             color: "red",
             action: deleteNotes
+        },
+        {
+            id: 3,
+            text: "Edit",
+            icon: <EditIcon />,
+            color: "green",
+            action: () => handleEditData({ id, date, title, description })
         }
     ]
     return (
