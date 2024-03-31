@@ -4,6 +4,7 @@ import { useNotesStore } from "../utils/zustand/NotesStore"
 import { useSearchStore } from "../utils/zustand/SearchStore"
 
 function NotesList() {
+    document.title = "Notes"
     const notes = useNotesStore(state => state.notes)
     const search = useSearchStore(state => state.search)
     let notesDisplay = notes

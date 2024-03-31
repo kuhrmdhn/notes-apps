@@ -5,6 +5,7 @@ import AddNotesForm from "./component/AddNotesForm"
 import SideBar from "./component/Sidebar"
 import Banner from './component/Banner'
 import LazyNote from './lazy/template/LazyNote'
+import EditNotesForm from './component/EditNotesForm'
 const NotesList = lazy(() => import( './component/NotesList'))
 const ArchiveList = lazy(() => import('./component/ArchiveList'))
 
@@ -27,6 +28,7 @@ function App() {
         <RouterProvider router={route} />
       </div>
       <AddNotesForm />
+      <EditNotesForm />
     </main>
   )
 }

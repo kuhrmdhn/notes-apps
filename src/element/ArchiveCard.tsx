@@ -1,9 +1,11 @@
 import { IconButton, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
 import { NotesType } from "../utils/type/NotesType"
-import { ChevronDownIcon, CloseIcon, DeleteIcon } from "@chakra-ui/icons"
+import { ChevronDownIcon, CloseIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons"
 import { useNotesStore } from "../utils/zustand/NotesStore"
+import { useFormStore } from "../utils/zustand/FormStore"
 
 function ArchiveCard({ id, date, title, description }: NotesType) {
+    const handleEditData = useFormStore(state => state.handleEditData)
     const [notes, setNotes, archive, setArchive, fetchLocalStorage] = useNotesStore(state => [
         state.notes,
         state.setNotes,
@@ -12,7 +14,7 @@ function ArchiveCard({ id, date, title, description }: NotesType) {
         state.fetchLocalStorage
     ])
 
-    function unarchive() :void {
+    function unarchive(): void {
         const index = archive.findIndex(archived => archived.id === id && archived.date === date && archived.title === title && archived.description === description);
         const unarchiveNote = archive.splice(index, 1)
         setNotes([...notes, unarchiveNote].flatMap(e => e))
@@ -40,6 +42,13 @@ function ArchiveCard({ id, date, title, description }: NotesType) {
             text: "Delete",
             color: "red",
             action: deleteArchive
+        },
+        {
+            id: 3,
+            text: "Edit",
+            icon: <EditIcon />,
+            color: "blue",
+            action: () => handleEditData({ id, date, title, description })
         }
     ]
 
