@@ -1,10 +1,11 @@
-import { IconButton, Menu, MenuButton, MenuItem, MenuList } from "@chakra-ui/react"
+import { IconButton, Menu, MenuButton, MenuItem, MenuList, useToast } from "@chakra-ui/react"
 import { NotesType } from "../utils/type/NotesType"
 import { CalendarIcon, ChevronDownIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons"
 import { useNotesStore } from "../utils/zustand/NotesStore"
 import { useFormStore } from "../utils/zustand/FormStore"
 
 function NotesCard({ id, date, title, description }: NotesType) {
+    const toast = useToast()
     const handleEditData = useFormStore(state => state.handleEditData)
     const [notes, setNotes, archive, setArchive, fetchLocalStorage] = useNotesStore(state => [
         state.notes,
@@ -18,6 +19,13 @@ function NotesCard({ id, date, title, description }: NotesType) {
         notes.splice(index, 1)
         setNotes(notes)
         fetchLocalStorage()
+        toast({
+            title: `Deleted ${title} from Notes!`,
+            status: "success",
+            isClosable: true,
+            duration: 1500,
+            position: "top-right"
+        })
     }
     function archiveNotes(): void {
         const index = notes.findIndex(note => note.id === id && note.date === date && note.title === title && note.description === description);
@@ -25,6 +33,13 @@ function NotesCard({ id, date, title, description }: NotesType) {
         setArchive([...archive, newArchive].flatMap(e => e))
         setNotes(notes)
         fetchLocalStorage()
+        toast({
+            title: `Moved ${title} to Archive!`,
+            status: "success",
+            isClosable: true,
+            duration: 1500,
+            position: "top-right"
+        })
     }
 
     const menuListData = [
