@@ -1,4 +1,4 @@
-import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, FormControl, FormLabel, Input, Textarea } from "@chakra-ui/react"
+import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, FormControl, FormLabel, Input, Textarea, useToast } from "@chakra-ui/react"
 import { useFormStore } from "../utils/zustand/FormStore"
 import { EditIcon } from "@chakra-ui/icons"
 import React, { useEffect, useState } from "react"
@@ -10,6 +10,7 @@ function EditNotesForm() {
     const editedData = useFormStore(state => state.editedData)
     const [formData, setFormData] = useState(editedData)
     const [notes, setNotes, archive, setArchive] = useNotesStore(state => [state.notes, state.setNotes, state.archive, state.setArchive])
+    const toast = useToast()
     useEffect(() => {
         setFormData(editedData);
     }, [editedData]);
@@ -58,6 +59,13 @@ function EditNotesForm() {
             setArchive([...archive])
         }
         onCloseEditForm()
+        toast({
+            title: "Edit Success!",
+            status: "success",
+            isClosable: true,
+            duration: 1500,
+            position: "top-right"
+        })
     }
 
     return (
