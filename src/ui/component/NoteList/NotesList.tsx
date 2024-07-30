@@ -1,7 +1,7 @@
-import EmptyNote from "../element/EmptyNote"
-import NotesCard from "../element/NotesCard"
-import { useNotesStore } from "../utils/zustand/NotesStore"
-import { useSearchStore } from "../utils/zustand/SearchStore"
+import EmptyNote from "../../element/EmptyNote"
+import NotesCard from "../../element/NotesCard"
+import { useNotesStore } from "../../../utils/zustand/NotesStore"
+import { useSearchStore } from "../../../utils/zustand/SearchStore"
 
 function NotesList() {
     document.title = "Notes"

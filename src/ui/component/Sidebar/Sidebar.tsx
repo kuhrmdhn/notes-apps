@@ -8,9 +8,9 @@ import {
   TabList,
   Tabs
 } from "@chakra-ui/react"
-import Logo from "../element/Logo"
+import Logo from "../../element/Logo"
 import { CalendarIcon, EditIcon, HamburgerIcon, SearchIcon } from "@chakra-ui/icons"
-import { useSearchStore } from "../utils/zustand/SearchStore"
+import { useSearchStore } from "../../../utils/zustand/SearchStore"
 import { useState } from "react"
 
 function SideBar() {

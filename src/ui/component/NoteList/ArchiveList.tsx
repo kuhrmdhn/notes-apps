@@ -1,7 +1,7 @@
-import ArchiveCard from "../element/ArchiveCard"
-import EmptyNote from "../element/EmptyNote"
-import { useNotesStore } from "../utils/zustand/NotesStore"
-import { useSearchStore } from "../utils/zustand/SearchStore"
+import ArchiveCard from "../../element/ArchiveCard"
+import EmptyNote from "../../element/EmptyNote"
+import { useNotesStore } from "../../../utils/zustand/NotesStore"
+import { useSearchStore } from "../../../utils/zustand/SearchStore"
 
 function ArchiveList() {
     document.title = "Archive"

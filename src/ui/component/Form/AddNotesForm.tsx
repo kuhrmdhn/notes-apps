@@ -18,18 +18,12 @@ import {
 } from '@chakra-ui/react'
 import { AddIcon, EditIcon } from "@chakra-ui/icons"
 import React, { useRef, useState } from 'react'
-import { useNotesStore } from '../utils/zustand/NotesStore'
+import { useNotesStore } from '../../../utils/zustand/NotesStore'
 
 function AddNotesForm() {
     const toast = useToast()
     const archiveChecked = useRef<HTMLInputElement>(null)
-    const [notes, setNotes, archive, setArchive, fetchLocalStorage] = useNotesStore(state => [
-        state.notes,
-        state.setNotes,
-        state.archive,
-        state.setArchive,
-        state.fetchLocalStorage
-    ])
+    const { notes, setNotes, archive, setArchive, fetchLocalStorage } = useNotesStore()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const [formData, setFormData] = useState({
         date: new Date().toISOString().slice(0, 10),
@@ -62,7 +56,7 @@ function AddNotesForm() {
         e.preventDefault()
         let title = formData.title
         let archiveCheckedStatus;
-        if(archiveChecked.current) {
+        if (archiveChecked.current) {
             archiveCheckedStatus = archiveChecked.current.checked
         }
         if (title === "") {
