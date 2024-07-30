@@ -1,34 +1,34 @@
 import { lazy } from 'react'
 import { RouterProvider, createBrowserRouter } from 'react-router-dom'
 import "./App.css"
-import AddNotesForm from "./component/AddNotesForm"
-import SideBar from "./component/Sidebar"
-import Banner from './component/Banner'
-import LazyNote from './lazy/template/LazyNote'
-import EditNotesForm from './component/EditNotesForm'
-const NotesList = lazy(() => import( './component/NotesList'))
-const ArchiveList = lazy(() => import('./component/ArchiveList'))
+import LazyNote from './ui/component/Loading/template/LazyNote'
+import Layout from './layout'
+import NotFoundPage from './ui/component/404/NotFoundPage'
+const NotesList = lazy(() => import('./ui/component/NoteList/NotesList'))
+const ArchiveList = lazy(() => import('./ui/component/NoteList/ArchiveList'))
 
 function App() {
   const route = createBrowserRouter([
     {
       path: "/",
-      element: <LazyNote children={<NotesList />} />
+      element: <Layout>
+        <LazyNote children={<NotesList />} />
+      </Layout>
     },
     {
       path: "/archive",
-      element: <LazyNote children={<ArchiveList/>}/>
+      element: <Layout>
+        <LazyNote children={<ArchiveList />} />
+      </Layout>
+    },
+    {
+      path: "*",
+      element: <NotFoundPage />
     }
   ])
   return (
     <main className="h-[100dvh] w-full flex bg-beige font-raleway">
-      <SideBar />
-      <div className='h-full w-full'>
-        <Banner />
-        <RouterProvider router={route} />
-      </div>
-      <AddNotesForm />
-      <EditNotesForm />
+      <RouterProvider router={route} />
     </main>
   )
 }

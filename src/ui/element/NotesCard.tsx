@@ -1,8 +1,8 @@
 import { IconButton, Menu, MenuButton, MenuItem, MenuList, useToast } from "@chakra-ui/react"
-import { NotesType } from "../utils/type/NotesType"
+import { NotesType } from "../../utils/type/NotesType"
 import { CalendarIcon, ChevronDownIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons"
-import { useNotesStore } from "../utils/zustand/NotesStore"
-import { useFormStore } from "../utils/zustand/FormStore"
+import { useNotesStore } from "../../utils/zustand/NotesStore"
+import { useFormStore } from "../../utils/zustand/FormStore"
 
 function NotesCard({ id, date, title, description }: NotesType) {
     const toast = useToast()

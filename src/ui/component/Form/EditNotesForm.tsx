@@ -1,15 +1,15 @@
 import { Button, Drawer, DrawerBody, DrawerCloseButton, DrawerContent, DrawerFooter, DrawerHeader, FormControl, FormLabel, Input, Textarea, useToast } from "@chakra-ui/react"
-import { useFormStore } from "../utils/zustand/FormStore"
+import { useFormStore } from "../../../utils/zustand/FormStore"
 import { EditIcon } from "@chakra-ui/icons"
 import React, { useEffect, useState } from "react"
-import { useNotesStore } from "../utils/zustand/NotesStore"
-import { NotesType } from "../utils/type/NotesType"
+import { useNotesStore } from "../../../utils/zustand/NotesStore"
+import { NotesType } from "../../../utils/type/NotesType"
 
 function EditNotesForm() {
-    const [isOpenEditForm, onCloseEditForm] = useFormStore(state => [state.isOpenEditForm, state.onCloseEditForm])
-    const editedData = useFormStore(state => state.editedData)
+    const { isOpenEditForm, onCloseEditForm } = useFormStore()
+    const { editedData } = useFormStore()
     const [formData, setFormData] = useState(editedData)
-    const [notes, setNotes, archive, setArchive] = useNotesStore(state => [state.notes, state.setNotes, state.archive, state.setArchive])
+    const { notes, setNotes, archive, setArchive } = useNotesStore()
     const toast = useToast()
     useEffect(() => {
         setFormData(editedData);
@@ -35,7 +35,7 @@ function EditNotesForm() {
         const name = e.target.name
         const value = e.target.value
         setFormData((initialValue) => ({
-            ...initialValue, [name] : value
+            ...initialValue, [name]: value
         }))
     }
 
@@ -49,13 +49,13 @@ function EditNotesForm() {
             title: formData.title,
             description: formData.description
         }
-        if(findNotesIdx !== -1) {
+        if (findNotesIdx !== -1) {
             index = findNotesIdx
             notes[index] = newData
             setNotes([...notes])
         } else {
             index = archive.findIndex(note => note.id === formData.id);
-            archive[index] = newData 
+            archive[index] = newData
             setArchive([...archive])
         }
         onCloseEditForm()
