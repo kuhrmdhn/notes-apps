@@ -5,7 +5,7 @@ export default function useDateFormat(date: Date) {
         month: 'long',
         day: 'numeric'
     }
-    const formattedDate = date.toLocaleDateString("id-ID", option)
+    const formattedDate = date.toLocaleDateString("en-EN", option)
 
     return formattedDate
 }
