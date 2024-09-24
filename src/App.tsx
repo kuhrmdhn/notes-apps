@@ -2,6 +2,7 @@ import "@fontsource-variable/open-sans"
 import { BrowserRouter as Router, Route, Routes, } from 'react-router-dom';
 import AuthMiddleware from './AuthMiddleware';
 import GetStarted from "./components/pages/GetStarted";
+import NotesPage from "./components/pages/Notes";
 function App() {
   return (
     <main style={{ fontFamily: 'Open Sans Variable' }}>
@@ -11,16 +12,12 @@ function App() {
             <Route path='/get-started' element={<GetStarted/>} />
           </Routes>
           <Routes>
-            <Route path='/' element={<Cek1/>} />
+            <Route path='/' element={<NotesPage/>} />
           </Routes>
         </AuthMiddleware>
       </Router >
     </main>
   )
-}
-
-const Cek1 = () => {
-  return <h1>Hello World 1</h1>
 }
 
 export default App
