@@ -12,7 +12,6 @@ export default function AuthMiddleware({ children }: Props) {
     if (!name) {
       return navigate("/get-started")
     }
-    return navigate("/")
   }, [name, navigate])
   return (
     <>

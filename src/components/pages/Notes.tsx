@@ -1,17 +1,30 @@
 import { NotesStore } from '@/store/notesStore'
 import { NoteType } from '@/types/noteType'
-import { useShallow } from 'zustand/shallow'
 import NoteCard from '../elements/NoteCard'
+import NoteDialog from '../elements/NoteDialog'
+import { motion } from "framer-motion"
+import { dialogStore } from '@/store/dialogStore'
+import { useShallow } from 'zustand/shallow'
 
 export default function NotesPage() {
-    const { notes } = NotesStore(useShallow((state) => ({ notes: state.notes })))
+    const { dialogOpen } = dialogStore(useShallow((state) => ({ dialogOpen: state.dialogOpen })))
+    const { notes } = NotesStore()
+    const noteList = {
+        "full": { width: "100%" },
+        "halfScreen": { width: "50%" }
+    }
+
     return (
-        <div className='grid grid-cols-3 gap-y-3 justify-items-center'>
-            {
-                notes.map((note:NoteType, index:number) => (
-                    <NoteCard note={note} key={index} />
-                ))
-            }
-        </div>
+        <section className='min-h-[100svh] w-full'>
+            <motion.div variants={noteList} animate={dialogOpen ? "halfScreen" : "full"} initial="full" className="flex flex-wrap justify-evenly gap-y-5">
+                {
+                    notes.map((note: NoteType) => (
+                        <NoteCard note={note} />
+                    ))
+                }
+            </motion.div>
+
+            <NoteDialog />
+        </section>
     )
 }
