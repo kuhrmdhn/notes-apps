@@ -4,16 +4,16 @@ import { initialNotes } from "@/constant/initialNotes";
 
 type NoteStore = {
     notes: NoteType[],
-    setNote: (param: NoteType[]) => void
+    setNotes: (param: NoteType[]) => void
 }
 
-const initialLocalStorage = JSON.stringify(initialNotes)
-localStorage.setItem("notes", initialLocalStorage)
-const notes = localStorage.getItem("notes")
+const savedNotes = localStorage.getItem("notes")
+const notes = savedNotes ? JSON.parse(savedNotes) : initialNotes
 
 export const NotesStore = create<NoteStore>()((set) => ({
-    notes: notes && JSON.parse(notes),
-    setNote(notes: NoteType[]) {
+    notes: notes,
+    setNotes(notes: NoteType[]) {
         set({ notes })
+        localStorage.setItem("notes", JSON.stringify(notes))
     },
 }))
