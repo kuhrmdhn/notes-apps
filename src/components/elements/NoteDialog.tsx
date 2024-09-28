@@ -8,6 +8,7 @@ import { useShallow } from "zustand/shallow"
 import { Button, ButtonProps } from "../ui/button"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
+import { initialNoteDialog } from "@/constant/initialNoteDialog"
 
 type ButtonPropsType = {
     title: string
@@ -17,10 +18,11 @@ type ButtonPropsType = {
 };
 
 export default function NoteDialog() {
-    const { dialogNote, dialogOpen, setDialogOpen } = dialogStore(useShallow((state) => ({
+    const { dialogNote, dialogOpen, setDialogOpen, setDialogNote } = dialogStore(useShallow((state) => ({
         dialogNote: state.dialogNote,
         dialogOpen: state.dialogOpen,
-        setDialogOpen: state.setDialogOpen
+        setDialogOpen: state.setDialogOpen,
+        setDialogNote: state.setDialogNote
     })))
     const [editNoteOption, setEditNoteOption] = useState({ data: dialogNote, isEdit: false })
     useEffect(() => {
@@ -67,9 +69,14 @@ export default function NoteDialog() {
             setEditNoteOption((state) => state && ({ ...state, data: { ...state.data, [name]: value } }))
         }
     }
+    const closeDialog = () => {
+        setDialogOpen(false)
+        setDialogNote(initialNoteDialog)
+    }
+    
     return (
         <motion.section className='h-[100svh] w-full lg:w-[40svw] bg-white fixed top-0 px-3 border-2 rounded-xl' variants={dialog} initial="close" animate={dialogOpen ? "open" : "close"}>
-            <Button variant={"ghost"} className="absolute right-2 top-2 hover:bg-transparent" onClick={() => setDialogOpen(false)}>
+            <Button variant={"ghost"} className="absolute right-2 top-2 hover:bg-transparent" onClick={closeDialog}>
                 <X />
             </Button>
             <div className="h-full w-full pt-5 flex flex-col gap-5">
@@ -123,6 +130,6 @@ export default function NoteDialog() {
 
 
 const dialog = {
-    "open": { right: "10px" },
+    "open": { right: "0px" },
     "close": { right: "-100%" },
 }
