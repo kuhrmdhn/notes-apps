@@ -13,7 +13,7 @@ export const dialogStore = create<Dialog>()((set) => ({
     dialogOpen: false,
     dialogNote: initialNoteDialog,
     setDialogNote: (dialogNote) => {
-        set({ dialogNote })
+            set({ dialogNote })
     },
     setDialogOpen: (state) => {
         set({ dialogOpen: state })

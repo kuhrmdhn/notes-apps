@@ -6,18 +6,21 @@ import useArchive from "@/hooks/useArchive";
 import useNote from "@/hooks/useNote";
 import { dialogStore } from "@/store/dialogStore";
 import { useShallow } from "zustand/shallow";
+import { useEffect, useState } from "react";
 
 type Props = {
     note: NoteType
 }
 
 export default function NoteCard({ note }: Props) {
+    const [isFocus, setIsFocus] = useState(false)
     const { title, body, createdAt, archived } = note
     const { toggleArchiveNote } = useArchive(note)
     const { deleteNote } = useNote(note)
-    const { setDialogNote, setDialogOpen } = dialogStore(useShallow((state) => ({
+    const { setDialogNote, setDialogOpen, dialogNote } = dialogStore(useShallow((state) => ({
         setDialogNote: state.setDialogNote,
-        setDialogOpen: state.setDialogOpen
+        setDialogOpen: state.setDialogOpen,
+        dialogNote: state.dialogNote
     })))
     const options: OptionType[] = [
         {
@@ -33,17 +36,25 @@ export default function NoteCard({ note }: Props) {
         setDialogOpen(true)
         setDialogNote(note)
     }
+    useEffect(() => {
+        if (note.id == dialogNote.id) {
+            setIsFocus(true)
+        } else {
+            setIsFocus(false)
+        }
+    }, [note, dialogNote])
+
     return (
-        <section className="w-[400px] h-40 p-4 border border-gray-400 rounded-md bg-white flex">
+        <section className={`w-[320px] h-32 flex p-4 border border-gray-400 rounded-md ${isFocus ? "bg-gray-100" : "bg-white"}`}>
             <span className="h-fit w-8">
-                <Ring color={archived ? "#05a301" : "#0225FF"} />
+                <Ring color={archived ? "#05a301" : isFocus ? "#f21e1e" : "#0225FF"} />
             </span>
             <div className="h-full w-full flex flex-col justify-between">
-                <section className="h-1/5 w-full font-bold text-lg">
+                <section className="h-1/3 w-full font-bold text-lg">
                     <h1 onClick={openDialogTrigger} className="w-fit cursor-pointer text-ellipsis overflow-hidden whitespace-nowrap underline-offset-2 hover:underline">{title}</h1>
                 </section>
                 <section className="h-full w-full overflow-hidden text-sm text-justify text-gray-500">
-                    <p className="line-clamp-3">{body}</p>
+                    <p className="line-clamp-2">{body}</p>
                 </section>
                 <section className="h-1/5 w-full text-2xs text-end">
                     <h2>Create on: {createdAt}</h2>

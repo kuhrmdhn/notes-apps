@@ -26,7 +26,7 @@ export default function NotesPageTemplate({ displayNotes }: Props) {
 
     const noteList = {
         "close": { width: "100%" },
-        "open": { width: windowWidth > 480 ? "47%" : "100%" }
+        "open": { width: windowWidth > 480 ? "47%" : "100%", gridTemplateColumns: "repeat(1, minmax(0, 1fr))" }
     }
 
     return (
@@ -35,12 +35,14 @@ export default function NotesPageTemplate({ displayNotes }: Props) {
                 variants={noteList}
                 animate={dialogOpen ? "open" : "close"}
                 initial="close"
-                className="flex flex-wrap justify-evenly gap-y-5 overflow-y-auto h-[100svh] border-2 rounded-lg hide-scrollbar py-2">
-                {
-                    displayNotes.map((note: NoteType) => (
-                        <NoteCard key={note.id} note={note} />
-                    ))
-                }
+                className="h-[100svh] overflow-y-auto border-2 rounded-lg hide-scrollbar py-2">
+                <div className={`grid grid-cols-1 lg:grid-cols-3 justify-items-center items-start gap-4 ${dialogOpen && "lg:grid-cols-1" }`}>
+                    {
+                        displayNotes.map((note: NoteType) => (
+                            <NoteCard key={note.id} note={note} />
+                        ))
+                    }
+                </div>
             </motion.div>
             <NoteDialog />
         </>
