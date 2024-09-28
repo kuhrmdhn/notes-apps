@@ -2,31 +2,50 @@ import { NotesStore } from "@/store/notesStore"
 import { NoteType } from "@/types/noteType"
 import { useShallow } from "zustand/shallow"
 import { useToast } from "./use-toast"
+import { dialogStore } from "@/store/dialogStore"
 
 export default function useArchive(note: NoteType) {
     const { toast } = useToast()
-    const { notes, setNotes } = NotesStore(useShallow((state) => ({ notes: state.notes, setNotes: state.setNotes })))
+    const { setArchiveNotes, setActiveNotes } = NotesStore(
+        useShallow((state) => ({
+            setArchiveNotes: state.setArchiveNotes,
+            setActiveNotes: state.setActiveNotes,
+        }))
+    )
+    const { setDialogOpen } = dialogStore(
+        useShallow((state) => ({
+            setDialogOpen: state.setDialogOpen
+        }))
+    )
+
+    const closeDialog = () => setDialogOpen(false)
+
     const archive = () => {
-        const newNotes = notes.map((n: NoteType) =>
-            note.id === n.id ? { ...n, archived: true } : n
-        )
+        setArchiveNotes(note)
         toast({
-            title: "Add to archive note",
+            title: "Added to archive",
             duration: 3000,
-
         })
-        setNotes(newNotes)
+        closeDialog()
     }
+
     const unarchive = () => {
-        const newNotes = notes.map((n: NoteType) =>
-            note.id === n.id ? { ...n, archived: false } : n
-        )
+        setActiveNotes(note)
         toast({
-            title: "Add to active note",
+            title: "Moved to active notes",
             duration: 3000,
-
         })
-        setNotes(newNotes)
+        closeDialog()
     }
-    return { archive, unarchive }
+
+    const toggleArchiveNote = () => {
+        if (note.archived) {
+            unarchive()
+        } else {
+            archive()
+        }
+        closeDialog()
+    }
+
+    return { archive, unarchive, toggleArchiveNote }
 }

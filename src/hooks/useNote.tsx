@@ -4,17 +4,17 @@ import { useShallow } from "zustand/shallow";
 import { useToast } from "./use-toast";
 import { ToastAction } from "@/components/ui/toast";
 
-export default function useNote(note: NoteType) {
+export default function useNote(param: NoteType) {
     const { notes, setNotes } = NotesStore(useShallow((state) => ({ notes: state.notes, setNotes: state.setNotes })))
     const { toast } = useToast()
     const addNote = () => {
-        const newNotes = [...notes, note]
+        const newNotes = [...notes, param]
         setNotes(newNotes)
     }
     const deleteNote = () => {
-        const noteIndex = notes.indexOf(note)
+        const noteIndex = notes.indexOf(param)
         const undoDeleteNote = () => {
-            notes.splice(noteIndex, 0, note)
+            notes.splice(noteIndex, 0, param)
             setNotes(notes)
         }
         notes.splice(noteIndex, 1)
@@ -26,6 +26,14 @@ export default function useNote(note: NoteType) {
             action: <ToastAction altText="Undo" onClick={undoDeleteNote}>Undo</ToastAction>
         })
     }
+    const editNote = () => {
+        const notesData = notes.map((note) => note.id === param.id ? param : note)
+        setNotes(notesData)
+        toast({
+            title: "Edited note",
+            duration: 3000,
+        })
+    }
 
-    return { addNote, deleteNote }
+    return { addNote, deleteNote, editNote }
 }
