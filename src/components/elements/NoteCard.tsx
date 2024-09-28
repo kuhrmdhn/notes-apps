@@ -13,23 +13,16 @@ type Props = {
 
 export default function NoteCard({ note }: Props) {
     const { title, body, createdAt, archived } = note
-    const { archive, unarchive } = useArchive(note)
+    const { toggleArchiveNote } = useArchive(note)
     const { deleteNote } = useNote(note)
     const { setDialogNote, setDialogOpen } = dialogStore(useShallow((state) => ({
         setDialogNote: state.setDialogNote,
         setDialogOpen: state.setDialogOpen
     })))
-    const handleArchiveNote = () => {
-        if (archived) {
-            unarchive()
-        } else {
-            archive()
-        }
-    }
     const options: OptionType[] = [
         {
             text: archived ? "Unarchive" : "Archive",
-            onClick: handleArchiveNote
+            onClick: toggleArchiveNote
         },
         {
             text: "Delete",
@@ -47,7 +40,7 @@ export default function NoteCard({ note }: Props) {
             </span>
             <div className="h-full w-full flex flex-col justify-between">
                 <section className="h-1/5 w-full font-bold text-lg">
-                    <h1 onClick={openDialogTrigger} className="w-fit text-ellipsis overflow-hidden whitespace-nowrap underline-offset-2 hover:underline">{title}</h1>
+                    <h1 onClick={openDialogTrigger} className="w-fit cursor-pointer text-ellipsis overflow-hidden whitespace-nowrap underline-offset-2 hover:underline">{title}</h1>
                 </section>
                 <section className="h-full w-full overflow-hidden text-sm text-justify text-gray-500">
                     <p className="line-clamp-3">{body}</p>
@@ -56,7 +49,7 @@ export default function NoteCard({ note }: Props) {
                     <h2>Create on: {createdAt}</h2>
                 </section>
             </div>
-            <span className="h-fit w-8">
+            <span className="h-fit w-5">
                 <Option optionList={options} />
             </span>
         </section>
