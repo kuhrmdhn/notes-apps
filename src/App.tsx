@@ -5,14 +5,17 @@ import GetStarted from "./components/pages/GetStarted";
 import NotesPage from "./components/pages/NotesPage";
 import { Toaster } from "./components/ui/toaster";
 import Navigation from "./components/elements/Navigation";
+import Header from "./components/elements/Header";
+import Search from "./components/pages/Search";
 
 
 function App() {
   return (
-    <main style={{ fontFamily: 'Open Sans Variable' }} className="flex lg:pr-5">
-      <Navigation/>
-      <section className="min-h-[100svh] w-full lg:w-4/5">
-        <Router>
+    <Router>
+      <Header/>
+      <main style={{ fontFamily: 'Open Sans Variable' }} className="flex lg:pr-5 pt-[20svh] h-[calc(100svh)]">
+        <Navigation />
+        <section className="min-h-full w-full lg:w-4/5">
           <AuthMiddleware>
             <Routes>
               <Route path='/get-started' element={<GetStarted />} />
@@ -20,11 +23,14 @@ function App() {
             <Routes>
               <Route path='/note/:noteStatus' element={<NotesPage />} />
             </Routes>
+            <Routes>
+              <Route path='/search' element={<Search />} />
+            </Routes>
           </AuthMiddleware>
-        </Router >
-      </section>
-      <Toaster />
-    </main>
+        </section>
+        <Toaster />
+      </main>
+    </Router >
   )
 }
 
