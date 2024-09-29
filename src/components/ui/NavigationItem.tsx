@@ -1,13 +1,15 @@
 import { motion } from "framer-motion";
 import React, { HTMLProps } from "react";
+import { Link } from "react-router-dom";
 
 type Props = {
     isActive: boolean;
     text: string;
     icon?: React.ReactNode
+    url: string
 } & HTMLProps<HTMLAnchorElement>
 
-export default function NavigationItem({ isActive, text, icon, ...props }: Props) {
+export default function NavigationItem({ isActive, text, icon, url,...props }: Props) {
     const background = {
         active: {
             width: "130%",
@@ -20,7 +22,8 @@ export default function NavigationItem({ isActive, text, icon, ...props }: Props
     };
 
     return (
-        <a
+        <Link to={url}
+            relative="path"
             className={`relative top-0 z-10 bg-transparent w-full h-14 flex flex-col lg:flex-row items-center justify-center gap-1 lg:gap-4 ${isActive ? "text-red-main" : "text-white"}`}
             {...props}
         >
@@ -36,6 +39,6 @@ export default function NavigationItem({ isActive, text, icon, ...props }: Props
                 initial="default"
                 animate={isActive ? "active" : "default"}
             />
-        </a>
+        </Link>
     );
 }

@@ -9,6 +9,7 @@ import { Button, ButtonProps } from "../ui/button"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
 import { initialNoteDialog } from "@/constant/initialNoteDialog"
+import useWindowWidth from "@/hooks/useWindowWidth"
 
 type ButtonPropsType = {
     title: string
@@ -18,6 +19,7 @@ type ButtonPropsType = {
 };
 
 export default function NoteDialog() {
+    const windowWidth = useWindowWidth()
     const { dialogNote, dialogOpen, setDialogOpen, setDialogNote } = dialogStore(useShallow((state) => ({
         dialogNote: state.dialogNote,
         dialogOpen: state.dialogOpen,
@@ -25,15 +27,15 @@ export default function NoteDialog() {
         setDialogNote: state.setDialogNote
     })))
     const [editNoteOption, setEditNoteOption] = useState({ data: dialogNote, isEdit: false })
-    useEffect(() => {
-        setEditNoteOption((state) => ({ ...state, data: dialogNote }))
-    }, [dialogNote])
     const { toggleArchiveNote } = useArchive(editNoteOption.data)
     const { editNote } = useNote(editNoteOption.data)
     const handleEditNote = () => {
         editNote()
-        setEditNoteOption((state) => ({...state, isEdit: false}))
+        setEditNoteOption((state) => ({ ...state, isEdit: false }))
     }
+    useEffect(() => {
+        setEditNoteOption((state) => ({ ...state, data: dialogNote }))
+    }, [dialogNote])
     const tableData = [
         {
             title: "Title",
@@ -54,7 +56,7 @@ export default function NoteDialog() {
         {
             title: editNoteOption.isEdit ? "Cancel" : "Edit",
             variant: "outline",
-            onClick: () => setEditNoteOption((state) => ({ ...state, isEdit: !state.isEdit }))
+            onClick: () => setEditNoteOption((state) => ({ data: dialogNote, isEdit: !state.isEdit }))
         },
         {
             title: editNoteOption.isEdit ? "Save" : `Set as ${editNoteOption.data.archived ? "Active" : "Archive"} Note`,
@@ -73,9 +75,14 @@ export default function NoteDialog() {
         setDialogOpen(false)
         setDialogNote(initialNoteDialog)
     }
-    
+
+    const dialog = {
+        "open": { right: windowWidth > 480 ? "16px" : "0" },
+        "close": { right: "-100%" },
+    }
+
     return (
-        <motion.section className='h-[100svh] w-full lg:w-[40svw] bg-white fixed top-0 px-3 border-2 rounded-xl' variants={dialog} initial="close" animate={dialogOpen ? "open" : "close"}>
+        <motion.section className='h-[80svh] w-full lg:w-[40svw] bg-white fixed z-20 bottom-0 px-3 border-2 rounded-xl' variants={dialog} initial="close" animate={dialogOpen ? "open" : "close"}>
             <Button variant={"ghost"} className="absolute right-2 top-2 hover:bg-transparent" onClick={closeDialog}>
                 <X />
             </Button>
@@ -102,10 +109,10 @@ export default function NoteDialog() {
                 </table>
                 <hr />
                 <Textarea
-                    className={`${editNoteOption.isEdit ? "border-slate-800" : "border-transparent"} text-justify disabled:text-black disabled:cursor-auto px-2 py-3 overflow-auto min-h-[60%] w-full`}
+                    className={`${editNoteOption.isEdit ? "border-slate-800" : "border-transparent"} text-justify disabled:text-black disabled:cursor-auto px-2 py-3 overflow-auto min-h-[50%] w-full`}
                     onChange={(e) => handleOnChange(e)}
                     name="body"
-                    defaultValue={editNoteOption.data?.body}
+                    value={editNoteOption.data?.body}
                     disabled={!editNoteOption.isEdit}
                 />
                 <div className="flex items-center justify-end gap-3 h-16 w-full">
@@ -125,11 +132,4 @@ export default function NoteDialog() {
             </div>
         </motion.section >
     )
-}
-
-
-
-const dialog = {
-    "open": { right: "0px" },
-    "close": { right: "-100%" },
 }

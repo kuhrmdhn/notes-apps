@@ -2,10 +2,13 @@ import React from "react"
 
 import { cn } from "@/lib/utils"
 
-export type InputProps = React.InputHTMLAttributes<HTMLInputElement>
+export type InputProps = React.InputHTMLAttributes<HTMLInputElement> & {
+  withLabel?: boolean
+}
+
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-  ({ className, type, id, placeholder, ...props }, ref) => {
+  ({ className, type, id, placeholder, withLabel = true, ...props }, ref) => {
     return (
       <div className="relative">
         <input
@@ -19,12 +22,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           placeholder={placeholder}
           {...props}
         />
-        <label
-          htmlFor={id}
-          className="absolute -top-6 left-3 text-sm text-slate-800 peer-focus:text-red-main peer-focus:-top-6 peer-placeholder-shown:top-4 peer-placeholder-shown:text-slate-600 duration-200"
-        >
-          {placeholder}
-        </label>
+        {
+          withLabel &&
+          <label
+            htmlFor={id}
+            className="absolute -top-6 left-3 text-sm text-slate-800 peer-focus:text-red-main peer-focus:-top-6 peer-placeholder-shown:top-4 peer-placeholder-shown:text-slate-600 duration-200"
+          >
+            {placeholder}
+          </label>
+        }
       </div>
     )
   }
