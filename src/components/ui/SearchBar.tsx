@@ -29,14 +29,14 @@ export default function SearchBar({ onSearch, defaultValue }: Props) {
         return () => window.removeEventListener("keydown", handleEnter)
     })
     return (
-        <div className="flex w-96 h-12">
+        <div className="flex w-56 lg:w-96 h-10 lg:h-12">
             <Input
                 defaultValue={defaultValue}
                 ref={inputRef}
                 onChange={handleOnChange}
-                className="w-96 h-full placeholder-gray-400 placeholder:text-sm"
+                className="w-full lg:w-96 h-full placeholder-gray-400 placeholder:text-sm"
                 withLabel={false}
-                placeholder="search your notes..."
+                placeholder="Search your notes"
             />
             <Button
                 onClick={handleSearch}

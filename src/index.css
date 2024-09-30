@@ -69,6 +69,11 @@
   }
 }
 
+*::selection {
+  text-decoration: underline;
+  text-underline-offset: 8px;
+}
+
 .hide-scrollbar::-webkit-scrollbar {
   width: 0;
 }

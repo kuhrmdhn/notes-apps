@@ -82,7 +82,7 @@ export default function NoteDialog() {
     }
 
     return (
-        <motion.section className='h-[80svh] w-full lg:w-[40svw] bg-white fixed z-20 bottom-0 px-3 border-2 rounded-xl' variants={dialog} initial="close" animate={dialogOpen ? "open" : "close"}>
+        <motion.section className='h-full lg:h-[80svh] w-full lg:w-[40svw] bg-white fixed z-20 bottom-0 px-3 border-2 rounded-xl' variants={dialog} initial="close" animate={dialogOpen ? "open" : "close"}>
             <Button variant={"ghost"} className="absolute right-2 top-2 hover:bg-transparent" onClick={closeDialog}>
                 <X />
             </Button>

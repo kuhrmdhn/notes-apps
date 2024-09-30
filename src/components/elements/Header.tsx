@@ -13,7 +13,7 @@ export default function Header() {
     return setSearchParams({ keyword: param })
   }
   return (
-    <header className="h-16 w-full flex items-center justify-around fixed top-0 z-10 bg-white">
+    <header className={`h-16 w-full flex items-center justify-around fixed top-0 z-10 bg-white ${pathname === "/get-started" && "hidden"}`}>
       <Logo />
       <SearchBar onSearch={onSearch} defaultValue={searchParams.get("keyword") || ""} />
     </header>
