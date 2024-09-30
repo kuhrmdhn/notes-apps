@@ -11,6 +11,9 @@ export default function Search() {
     const [noteDisplay, setNoteDisplay] = useState(initialNotes)
     useEffect(() => {
         const keyword = searchParams.get("keyword")
+        if(!keyword) {
+            setNoteDisplay([])
+        }
         if (keyword) {
             const key = keyword.trim().toLowerCase()
             const filteredNotes = notes.filter((note) => note.title.trim().toLowerCase().includes(key))

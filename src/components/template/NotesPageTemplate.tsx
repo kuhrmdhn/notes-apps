@@ -8,9 +8,10 @@ import NoteDialog from '../elements/NoteDialog'
 
 type Props = {
     displayNotes: NoteType[]
+    className?: string
 }
 
-export default function NotesPageTemplate({ displayNotes }: Props) {
+export default function NotesPageTemplate({ displayNotes, className }: Props) {
     const { dialogOpen } = dialogStore(useShallow((state) => ({ dialogOpen: state.dialogOpen })))
     const windowWidth = useWindowWidth()
 
@@ -25,10 +26,10 @@ export default function NotesPageTemplate({ displayNotes }: Props) {
                 variants={noteList}
                 animate={dialogOpen ? "open" : "close"}
                 initial="close"
-                className="h-[80svh] w-full overflow-y-auto border-2 rounded-lg hide-scrollbar py-2">
+                className="h-full w-full overflow-y-auto border-2 rounded-lg hide-scrollbar py-2">
                 {
                     displayNotes.length > 0 ?
-                        <div className={`grid justify-items-center gap-4 ${dialogOpen ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 "}`}>
+                        <div className={`grid justify-items-center gap-4 ${dialogOpen ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 "} ${className}`}>
                             {
                                 displayNotes.map((note: NoteType) => (
                                     <NoteCard key={note.id} note={note} />
