@@ -7,11 +7,6 @@ export default function Navigation() {
     const {pathname} = useLocation()
     const navigationItems = [
         {
-            text: "Profile",
-            href: "/profile",
-            icon: <User />
-        },
-        {
             text: "Dashboard",
             href: "/",
             icon: <LayoutDashboard />
@@ -25,6 +20,11 @@ export default function Navigation() {
             text: "Archive Note",
             href: "/note/archive",
             icon: <ListChecks />
+        },
+        {
+            text: "Profile",
+            href: "/profile",
+            icon: <User />
         },
     ];
     return (
