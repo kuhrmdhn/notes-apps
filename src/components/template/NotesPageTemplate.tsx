@@ -25,16 +25,31 @@ export default function NotesPageTemplate({ displayNotes }: Props) {
                 variants={noteList}
                 animate={dialogOpen ? "open" : "close"}
                 initial="close"
-                className="h-[80svh] overflow-y-auto border-2 rounded-lg hide-scrollbar py-2">
-                <div className={`grid justify-items-center items-start gap-4 ${dialogOpen ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 " }`}>
-                    {
-                        displayNotes.map((note: NoteType) => (
-                            <NoteCard key={note.id} note={note} />
-                        ))
-                    }
-                </div>
+                className="h-[80svh] w-full overflow-y-auto border-2 rounded-lg hide-scrollbar py-2">
+                {
+                    displayNotes.length > 0 ?
+                        <div className={`grid justify-items-center gap-4 ${dialogOpen ? "grid-cols-1" : "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 "}`}>
+                            {
+                                displayNotes.map((note: NoteType) => (
+                                    <NoteCard key={note.id} note={note} />
+                                ))
+                            }
+                        </div>
+                        :
+                        <EmptyNotes />
+                }
             </motion.div>
             <NoteDialog />
         </>
+    )
+}
+
+
+function EmptyNotes() {
+    return (
+        <div className='h-full w-full flex flex-col justify-center items-center gap-5 text-lg font-thin '>
+            <img className='w-1/5 aspect-square' src="/image/empty-note.svg" alt="Empty note" />
+            <h3>Note is empty</h3>
+        </div>
     )
 }
