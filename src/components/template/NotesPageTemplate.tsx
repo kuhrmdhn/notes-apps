@@ -49,7 +49,7 @@ export default function NotesPageTemplate({ displayNotes, className }: Props) {
 function EmptyNotes() {
     return (
         <div className='h-full w-full flex flex-col justify-center items-center gap-5 text-lg font-thin '>
-            <img className='w-1/5 aspect-square' src="/image/empty-note.svg" alt="Empty note" />
+            <img className='w-1/6 aspect-square' src="/image/empty-note.svg" alt="Empty note" />
             <h3>Note is empty</h3>
         </div>
     )

@@ -9,8 +9,10 @@ import { Textarea } from "../ui/textarea"
 import { useToast } from "@/hooks/use-toast"
 import { Checkbox } from "../ui/checkbox"
 import { Label } from "../ui/label"
+import useDateFormat from "@/hooks/useDateFormat"
 
 export default function AddNote() {
+    const formatDate = useDateFormat()
     const checkboxRef = useRef<HTMLButtonElement>(null)
     const [inputTitleLength, setInputTitleLength] = useState(0)
     const [noteData, setNoteData] = useState<NoteType>(initialNoteData)
@@ -19,20 +21,12 @@ export default function AddNote() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         const id = Date.now()
-        const createdAt = new Date().toLocaleDateString("en-US", { year: "numeric", weekday: "long", day: "numeric", month: "long" })
+        const createdAt = formatDate(new Date)
         const data = {
             ...noteData,
             id,
             createdAt,
             archived: checkboxRef.current?.getAttribute('aria-checked') === 'true' || false
-        }
-        if(data.title.trim() == "" || data.body.trim() == "") {
-            toast({
-                title: "Title or note can't be empty",
-                duration: 3000,
-                variant: "destructive"
-            })
-            return
         }
         addNote(data)
         setNoteData(initialNoteData)

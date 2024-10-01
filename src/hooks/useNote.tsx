@@ -8,6 +8,14 @@ export default function useNote(param: NoteType) {
     const { notes, setNotes } = NotesStore(useShallow((state) => ({ notes: state.notes, setNotes: state.setNotes })))
     const { toast } = useToast()
     const addNote = (newNote: NoteType) => {
+        if (newNote.title.trim() == "" || newNote.body.trim() == "") {
+            toast({
+                title: "Title or note can't be empty",
+                duration: 3000,
+                variant: "destructive"
+            })
+            return
+        }
         notes.push(newNote)
         setNotes(notes)
         toast({

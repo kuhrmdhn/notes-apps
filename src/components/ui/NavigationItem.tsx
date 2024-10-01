@@ -24,13 +24,13 @@ export default function NavigationItem({ isActive, text, icon, url,...props }: P
     return (
         <Link to={url}
             relative="path"
-            className={`relative top-0 z-10 bg-transparent w-full h-14 flex flex-col lg:flex-row items-center justify-center gap-1 lg:gap-4 ${isActive ? "text-red-main" : "text-white"}`}
+            className={`relative top-0 z-10 bg-transparent w-full lg:w-[12svw] h-14 flex flex-col lg:flex-row items-center justify-center gap-1 lg:gap-0 ${isActive ? "text-red-main" : "text-white"}`}
             {...props}
         >
-            <span className="w-6">
+            <span className="w-1/3 flex justify-center ">
             {icon}
             </span>
-            <span className="w-20 md:w-28 lg:w-24 text-center text-xs sm:text-base">
+            <span className="w-16 md:w-28 lg:w-full text-center text-2xs sm:text-base">
                 {text}
             </span>
             <motion.span

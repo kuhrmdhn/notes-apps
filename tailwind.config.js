@@ -57,7 +57,7 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontSize: {
-        "2xs": "0.675rem"
+        "2xs": "0.6rem"
       }
     },
   },
