@@ -1,7 +1,7 @@
 import { Search } from "lucide-react";
 import { Button } from "./button";
 import { Input } from "./input";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 
 type Props = {
     onSearch: (keyword: string) => void
@@ -15,19 +15,21 @@ export default function SearchBar({ onSearch, defaultValue }: Props) {
         const { value } = e.target
         setInputValue(value)
     }
-    const handleSearch = () => {
-        onSearch(inputValue)
-    }
+    const handleSearch = useCallback(() => {
+        if (inputValue.trim() !== "") {
+            onSearch(inputValue)
+        }
+    },[inputValue, onSearch])
 
     useEffect(() => {
         const handleEnter = ({ key }: KeyboardEvent) => {
-            if (key == "Enter") {
+            if (key == "Enter" && inputRef.current === document.activeElement) {
                 handleSearch()
             }
         }
         window.addEventListener("keydown", handleEnter)
         return () => window.removeEventListener("keydown", handleEnter)
-    })
+    },[inputValue, handleSearch])
     return (
         <div className="flex w-56 lg:w-96 h-10 lg:h-12">
             <Input
