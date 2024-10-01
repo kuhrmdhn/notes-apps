@@ -41,12 +41,12 @@ export default function NoteCard({ note }: Props) {
 
     return (
         <section className={`w-[320px] h-32 flex p-4 border border-gray-400 rounded-md ${isFocus ? "bg-gray-100" : "bg-white"}`}>
-            <span className="h-fit w-8">
+            <span className="h-full w-1/5">
                 <Ring color={archived ? "#05a301" : isFocus ? "#f21e1e" : "#0225FF"} />
             </span>
-            <div className="h-full w-full flex flex-col justify-between">
+            <div className="h-full max-w-[80%] flex flex-col justify-between">
                 <section className="h-1/3 w-full font-bold text-sm sm:text-base lg:text-lg">
-                    <h1 onClick={() => openDialog(note)} className="w-fit cursor-pointer line-clamp-1 overflow-hidden whitespace-nowrap underline-offset-2 hover:underline">{title}</h1>
+                    <h1 onClick={() => openDialog(note)} className="w-full cursor-pointer line-clamp-1 underline-offset-2 hover:underline">{title}</h1>
                 </section>
                 <section className="h-full w-full overflow-hidden text-xs sm:text-sm text-justify text-gray-500">
                     <p className="line-clamp-3 sm:line-clamp-2">{body}</p>
@@ -55,7 +55,7 @@ export default function NoteCard({ note }: Props) {
                     <h2>Create on: {createdAt}</h2>
                 </section>
             </div>
-            <span className="h-fit w-5">
+            <span className="h-full w-1/5">
                 <Option optionList={options} />
             </span>
         </section>
