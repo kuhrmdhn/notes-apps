@@ -1,4 +1,4 @@
-import { initialNoteDialog } from "@/constant/initialNoteDialog"
+import { initialNoteData } from "@/constant/initialNoteDialog"
 import { NoteType } from "@/types/noteType"
 import { create } from "zustand"
 
@@ -11,7 +11,7 @@ type Dialog = {
 
 export const dialogStore = create<Dialog>()((set) => ({
     dialogOpen: false,
-    dialogNote: initialNoteDialog,
+    dialogNote: initialNoteData,
     setDialogNote: (dialogNote) => {
             set({ dialogNote })
     },

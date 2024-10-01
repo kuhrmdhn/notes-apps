@@ -1,4 +1,4 @@
-import { LayoutList, ListChecks, User } from "lucide-react";
+import { List, ListCheck, ListPlus, User } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import NavigationItem from "../ui/NavigationItem";
 import ProfileCard from "../ui/ProfileCard";
@@ -9,12 +9,17 @@ export default function Navigation() {
         {
             text: "Active Note",
             href: "/note/active",
-            icon: <LayoutList />
+            icon: <List />
         },
         {
             text: "Archive Note",
             href: "/note/archive",
-            icon: <ListChecks />
+            icon: <ListCheck />
+        },
+        {
+            text: "Add Note",
+            href: "/add-note",
+            icon: <ListPlus />
         },
         {
             text: "Profile",

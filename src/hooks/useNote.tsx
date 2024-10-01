@@ -7,9 +7,13 @@ import { ToastAction } from "@/components/ui/toast";
 export default function useNote(param: NoteType) {
     const { notes, setNotes } = NotesStore(useShallow((state) => ({ notes: state.notes, setNotes: state.setNotes })))
     const { toast } = useToast()
-    const addNote = () => {
-        const newNotes = [...notes, param]
-        setNotes(newNotes)
+    const addNote = (newNote: NoteType) => {
+        notes.push(newNote)
+        setNotes(notes)
+        toast({
+            title: "Add new note",
+            duration: 3000,
+        })
     }
     const deleteNote = () => {
         const noteIndex = notes.indexOf(param)

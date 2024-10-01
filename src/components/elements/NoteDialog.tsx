@@ -8,8 +8,8 @@ import { useShallow } from "zustand/shallow"
 import { Button, ButtonProps } from "../ui/button"
 import { Input } from "../ui/input"
 import { Textarea } from "../ui/textarea"
-import { initialNoteDialog } from "@/constant/initialNoteDialog"
 import useWindowWidth from "@/hooks/useWindowWidth"
+import { initialNoteData } from "@/constant/initialNoteDialog"
 
 type ButtonPropsType = {
     title: string
@@ -36,6 +36,7 @@ export default function NoteDialog() {
     useEffect(() => {
         setEditNoteOption((state) => ({ ...state, data: dialogNote }))
     }, [dialogNote])
+    console.log({dialogNote})
     const tableData = [
         {
             title: "Title",
@@ -73,7 +74,7 @@ export default function NoteDialog() {
     }
     const closeDialog = () => {
         setDialogOpen(false)
-        setDialogNote(initialNoteDialog)
+        setDialogNote(initialNoteData)
     }
 
     const dialog = {
