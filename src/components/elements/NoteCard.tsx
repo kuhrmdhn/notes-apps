@@ -17,10 +17,9 @@ export default function NoteCard({ note }: Props) {
     const { title, body, createdAt, archived } = note
     const { toggleArchiveNote } = useArchive(note)
     const { deleteNote } = useNote(note)
-    const { setDialogNote, setDialogOpen, dialogNote } = dialogStore(useShallow((state) => ({
-        setDialogNote: state.setDialogNote,
-        setDialogOpen: state.setDialogOpen,
-        dialogNote: state.dialogNote
+    const { dialogNote, openDialog } = dialogStore(useShallow((state) => ({
+        dialogNote: state.dialogNote,
+        openDialog: state.openDialog
     })))
     const options: OptionType[] = [
         {
@@ -32,10 +31,6 @@ export default function NoteCard({ note }: Props) {
             onClick: deleteNote
         }
     ]
-    const openDialogTrigger = () => {
-        setDialogOpen(true)
-        setDialogNote(note)
-    }
     useEffect(() => {
         if (note.id == dialogNote.id) {
             setIsFocus(true)
@@ -50,11 +45,11 @@ export default function NoteCard({ note }: Props) {
                 <Ring color={archived ? "#05a301" : isFocus ? "#f21e1e" : "#0225FF"} />
             </span>
             <div className="h-full w-full flex flex-col justify-between">
-                <section className="h-1/3 w-full font-bold text-lg">
-                    <h1 onClick={openDialogTrigger} className="w-fit cursor-pointer text-ellipsis overflow-hidden whitespace-nowrap underline-offset-2 hover:underline">{title}</h1>
+                <section className="h-1/3 w-full font-bold text-sm sm:text-base lg:text-lg">
+                    <h1 onClick={() => openDialog(note)} className="w-fit cursor-pointer line-clamp-1 overflow-hidden whitespace-nowrap underline-offset-2 hover:underline">{title}</h1>
                 </section>
-                <section className="h-full w-full overflow-hidden text-sm text-justify text-gray-500">
-                    <p className="line-clamp-2">{body}</p>
+                <section className="h-full w-full overflow-hidden text-xs sm:text-sm text-justify text-gray-500">
+                    <p className="line-clamp-3 sm:line-clamp-2">{body}</p>
                 </section>
                 <section className="h-1/5 w-full text-2xs text-end">
                     <h2>Create on: {createdAt}</h2>

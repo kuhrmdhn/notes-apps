@@ -17,10 +17,10 @@ export default function GetStarted() {
     }
     return (
         <section className="w-full h-screen bg-white flex md:flex-col lg:flex-row md:gap-5 justify-center lg:justify-evenly items-center">
-            <div className="w-2/5 h-2/5 lg:h-full hidden opacity-0 md:opacity-100 md:flex justify-center items-center">
-                <img className="h-1/2 w-auto aspect-auto" src="/image/welcome-image.svg" alt="Welcome Image" />
+            <div className="w-2/5 h-1/2 lg:h-full hidden opacity-0 md:opacity-100 md:flex justify-center items-center">
+                <img className="h-4/5 lg:h-1/2 w-auto aspect-auto" src="/image/welcome-image.svg" alt="Welcome Image" />
             </div>
-            <form onSubmit={handleSubmit} className="h-full w-5/6 md:w-1/2 lg:w-2/5 flex flex-col justify-evenly">
+            <form onSubmit={handleSubmit} className="h-full w-5/6 md:w-1/2 lg:w-2/5 flex flex-col gap-14 justify-center">
                 <div>
                     <h1 className="text-xl lg:text-3xl font-semibold">Before we get started, <br /> let's get to know each other!</h1>
                     <p className="text-xs md:text-base">Don't worry, we just need this to make your experience more personal!</p>

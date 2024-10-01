@@ -34,7 +34,7 @@ export default function SearchBar({ onSearch, defaultValue }: Props) {
                 defaultValue={defaultValue}
                 ref={inputRef}
                 onChange={handleOnChange}
-                className="w-full lg:w-96 h-full placeholder-gray-400 placeholder:text-sm"
+                className="w-full sm:w-56 lg:w-96 h-full placeholder-gray-400 placeholder:text-sm"
                 withLabel={false}
                 placeholder="Search your notes"
             />

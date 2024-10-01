@@ -12,13 +12,7 @@ export default function useArchive(note: NoteType) {
             setActiveNotes: state.setActiveNotes,
         }))
     )
-    const { setDialogOpen } = dialogStore(
-        useShallow((state) => ({
-            setDialogOpen: state.setDialogOpen
-        }))
-    )
-
-    const closeDialog = () => setDialogOpen(false)
+    const { closeDialog } = dialogStore(useShallow((state) => ({ closeDialog: state.closeDialog })))
 
     const archive = () => {
         setArchiveNotes(note)
