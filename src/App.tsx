@@ -8,6 +8,7 @@ import Navigation from "./components/elements/Navigation";
 import Header from "./components/elements/Header";
 import Search from "./components/pages/Search";
 import Profile from "./components/pages/Profile";
+import AddNote from "./components/pages/AddNote";
 
 
 function Main() {
@@ -29,6 +30,7 @@ function Main() {
               <Route path='/profile' element={<Profile />} />
               <Route path='/note/:noteStatus' element={<NotesPage />} />
               <Route path='/search' element={<Search />} />
+              <Route path='/add-note' element={<AddNote />} />
             </Routes>
           </AuthMiddleware>
         </section>

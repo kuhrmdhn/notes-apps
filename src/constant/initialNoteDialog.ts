@@ -1,6 +1,6 @@
 import { NoteType } from "@/types/noteType";
 
-export const initialNoteDialog:NoteType = {
+export const initialNoteData: NoteType = {
     id: "",
     archived: false,
     body: "",
